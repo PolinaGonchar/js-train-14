@@ -1,370 +1,405 @@
-// Завдання 1
+// Task 1
 /**
- * Функція `getDateDetails` отримує об'єкт дати та повертає об'єкт з деякими деталями про дату.
+ * The function `getDateDetails` takes a Date object and returns an object with some details about the date.
  *
- * date - Об'єкт Date.
+ * date - A Date object.
  *
- * Повертає об'єкт, який містить такі властивості:
- *  year - рік,
- *  month - місяць,
- *  day - день місяця.
+ * Returns an object containing the following properties:
+ *  year - the year,
+ *  month - the month,
+ *  day - the day of the month.
  */
 function getDateDetails(date) {
-  // Перевірка, чи є вхідне значення об'єктом Date,це можно зробити перевіривши чи є date.getTime по типу функція .
-  // Якщо date не є об'єктом Date, повертаємо рядок
-  // "Помилка: вхідне значення має бути об'єктом Date"
-  // Повертаємо об'єкт, що містить деякі деталі про вхідний об'єкт Date.
+  if (!(typeof date.getTime === 'function')) {
+    return "Error: the input value must be a Date object";
+  }
+  return {
+    year: date.getFullYear(),
+    month: date.getMonth(),
+    day: date.getDate(),
+  };
 }
 
-console.log("Завдання: 1 ==============================");
+console.log("Task: 1 ==============================");
 const now = new Date("2023-12-25T00:00:00Z");
 console.log(getDateDetails(new Date("2023-12-25T00:00:00Z")));
-//Виведе { year: 2023, month: 11, day: 25 }
+// Outputs: { year: 2023, month: 11, day: 25 }
 
-// Завдання 2
+// Task 2
 /**
- * Функція `setDateDetails` приймає об'єкт Date і рядок ISO дати, і встановлює дату з ISO рядка в об'єкт Date.
+ * The function `setDateDetails` takes a Date object and an ISO date string and sets the date from the ISO string in the Date object.
  *
- * date - Об'єкт Date, в який потрібно встановити дату.
- * isoString - Рядок дати в форматі ISO.
+ * date - A Date object where the date needs to be set.
+ * isoString - A date string in ISO format.
  *
- * Повертає об'єкт Date з встановленою датою, якщо вхідні дані вірні. Якщо ні, виводить повідомлення про помилку.
+ * Returns a Date object with the set date if the input data is valid. If not, it outputs an error message.
  */
 function setDateDetails(date, isoString) {
-  // Перевірка, чи є вхідне значення об'єктом Date,це можно зробити перевіривши чи є date.getTime по типу функція .
-  // Якщо date не є об'єктом Date, повертаємо рядок
-  // "Помилка: вхідне значення має бути об'єктом Date"
-  // Перевірка, чи є вхідний ISO рядок валідним, отримавши дату з рядка та перевірити чи є результат числом,
-  //  якщо ні виводимо повідомлення "Помилка: недійсний ISO рядок"
-  // Встановлюємо дату з ISO рядка в об'єкт Date.
-  // Повертаємо об'єкт Date з встановленою датою.
+  if (!(typeof date.getTime === 'function')) {
+    return "Error: the input value must be a Date object";
+  }
+  if (isNaN(Date.parse(isoString))) {
+    console.log("Error: invalid ISO string");
+    return null;
+  }
+  date.setTime(Date.parse(isoString));
+  return date;
 }
 
-console.log("Завдання: 2 ==============================");
+console.log("Task: 2 ==============================");
 const date = new Date();
 console.log(setDateDetails(date, "2023-12-25T00:00:00Z"));
-//Виведе 2023-12-25T00:00:00.000Z
+// Outputs: 2023-12-25T00:00:00.000Z
 
-// Завдання 3
+// Task 3
 /**
- * Функція `dateToUTC` приймає об'єкт Date та повертає рядок, що представляє дату в UTC форматі.
+ * The function `dateToUTC` takes a Date object and returns a string representing the date in UTC format.
  *
- * date - Об'єкт Date.
+ * date - A Date object.
  *
- * Повертає рядок з датою в UTC форматі, якщо вхідне значення є дійсним об'єктом Date. Якщо ні, виводить повідомлення про помилку.
+ * Returns a string with the date in UTC format if the input value is a valid Date object. If not, it outputs an error message.
  */
 function dateToUTC(date) {
-  // Перевірка, чи є вхідне значення об'єктом Date,це можно зробити перевіривши чи є date.getTime по типу функція .
-  // Якщо date не є об'єктом Date, повертаємо рядок
-  // "Помилка: вхідне значення має бути об'єктом Date"
-  // Повертаємо рядок з датою в UTC форматі.
+  if (!(typeof date.getTime === 'function')) {
+    return "Error: the input value must be a Date object";
+  }
+  return date.toUTCString();
 }
 
-console.log("Завдання: 3 ==============================");
+console.log("Task: 3 ==============================");
 console.log(dateToUTC(new Date()));
-//Виведе Tue, 27 Jun 2023 07:15:47 GMT
+// Outputs something like: Tue, 27 Jun 2023 07:15:47 GMT
 
-// Завдання 4
+// Task 4
 /**
- * Функція `setSpecificTime` приймає об'єкт Date та встановлює конкретний час.
+ * The function `setSpecificTime` takes a Date object and sets a specific time.
  *
- * date - Об'єкт Date.
- * hours - Кількість годин.
- * minutes - Кількість хвилин.
- * seconds - Кількість секунд.
- * milliseconds - Кількість мілісекунд.
+ * date - A Date object.
+ * hours - The number of hours.
+ * minutes - The number of minutes.
+ * seconds - The number of seconds.
+ * milliseconds - The number of milliseconds.
  *
- * Повертає об'єкт Date з встановленим часом, якщо вхідні дані вірні. Якщо ні, виводить повідомлення про помилку.
+ * Returns a Date object with the set time if the input data is valid. If not, it outputs an error message.
  */
 function setSpecificTime(date, hours, minutes, seconds, milliseconds) {
-  // Перевірка, чи є вхідне значення об'єктом Date,це можно зробити перевіривши чи є date.getTime по типу функція .
-  // Якщо date не є об'єктом Date, повертаємо рядок
-  // "Помилка: вхідне значення має бути об'єктом Date"
-  // Встановлюємо конкретний час в об'єкті Date за допомогою setHours.
-  // Повертаємо об'єкт Date з встановленим часом.
+  if (!(typeof date.getTime === 'function')) {
+    return "Error: the input value must be a Date object";
+  }
+  date.setHours(hours, minutes, seconds, milliseconds);
+  return date;
 }
 
-console.log("Завдання: 4 ==============================");
+console.log("Task: 4 ==============================");
 console.log(
   setSpecificTime(new Date("2023-12-25T00:00:00.000Z"), 12, 30, 0, 0)
 );
-//Виведе 2023-12-25T09:30:00.000Z
+// Outputs: 2023-12-25T09:30:00.000Z
 
-// Завдання 5
-
+// Task 5
 /**
- * Функція `nextNewYear` приймає об'єкт Date і повертає час до наступного Нового року.
+ * The function `nextNewYear` takes a Date object and returns the time until the next New Year.
  *
- *
- * Повертає об'єкт з інформацією про час до наступного Нового року:
+ * Returns an object with information about the time until the next New Year:
  * {
- *   days: // Кількість днів до Нового року.
- *   hours: // Кількість годин до Нового року, не включаючи повні дні.
- *   minutes: // Кількість хвилин до Нового року, не включаючи повні години.
- *   seconds: // Кількість секунд до Нового року, не включаючи повні хвилини.
- *   milliseconds: // Кількість мілісекунд до Нового року, не включаючи повні секунди.
+ *   days: // The number of days until the New Year.
+ *   hours: // The number of hours until the New Year, not including full days.
+ *   minutes: // The number of minutes until the New Year, not including full hours.
+ *   seconds: // The number of seconds until the New Year, not including full minutes.
+ *   milliseconds: // The number of milliseconds until the New Year, not including full seconds.
  * }
  */
 function nextNewYear() {
-  // Створюєму змінну в яку записуємо поточну дату
-  // Визначення поточного року.
-  // Визначення дати наступного Нового року. Для цього створюємо новий об`єкт Date в якому збільшуємо поточний рік на 1, встановлюємо місяць на 0 а дату на 1
-  // Визначаємо кількість мілісекунд до наступного Нового року в змінну diff.
-  // Розраховуємо кількість повних днів, годин, хвилин і секунд.
-  // Дні:diff / (1000 * 60 * 60 * 24)
-  // Години:(diff / (1000 * 60 * 60)) % 24
-  // Хвилини: (diff / (1000 * 60)) % 60;
-  // Секунди:(diff / 1000) % 60;
-  // Мілісекунди:  diff % 1000;
+  let date = new Date();
+  let currentYear = date.getFullYear();
+  let newDate = new Date(currentYear + 1, 0, 1);
+  let diff = newDate.getTime() - date.getTime();
+  const days = diff / (1000 * 60 * 60 * 24);
+  const hours = (diff / (1000 * 60 * 60)) % 24;
+  const minutes = (diff / (1000 * 60)) % 60;
+  const seconds = (diff / 1000) % 60;
+  const milliseconds = diff % 1000;
+
+  return { days, hours, minutes, seconds, milliseconds };
 }
 
-console.log("Завдання:5  ==============================");
+console.log("Task: 5 ==============================");
 
 console.log(nextNewYear());
-//Виведе
+// Outputs the remaining time until the New Year
 
-// Завдання 6
+// Task 6
 /**
- * Функція `isLeapYear` перевіряє, чи є рік високосним.
+ * The function `isLeapYear` checks whether a year is a leap year.
  *
- * year - Рік, який треба перевірити.
+ * year - The year to check.
  *
- * Повертає об'єкт:
+ * Returns an object:
  * {
- *   year: // Рік, який був перевірений.
- *   isLeap: // Чи є рік високосним.
+ *   year: // The year that was checked.
+ *   isLeap: // Whether the year is a leap year.
  * }
  */
 function isLeapYear(year) {
-  // Перевірка, чи є вхідне значення числом якщо ні повертаємо рядок .
-  // Перевірка, чи є рік високосним.
-  // Високосним вважається рік, який ділиться націло на 4
-  // Повертаємо об'єкт з роком та інформацією про те, чи є він високосним.
+  if (typeof year !== "number") {
+    return "Error: the input value must be a number";
+  }
+  let isLeap = year % 4 === 0;
+  return { year, isLeap };
 }
-console.log("Завдання: 6 ==============================");
+
+console.log("Task: 6 ==============================");
 
 console.log(isLeapYear(2020));
-//Виведе { year: 2020, isLeap: true }
+// Outputs: { year: 2020, isLeap: true }
 
-// Завдання 7
+// Task 7
 /**
- * Функція `addDays` додає задану кількість днів до вказаної дати.
+ * The function `addDays` adds a specified number of days to the given date.
  *
- * date - Об'єкт Date.
- * days - Кількість днів, які треба додати.
+ * date - A Date object.
+ * days - The number of days to add.
  *
- * Повертає об'єкт:
+ * Returns an object:
  * {
- *   inputDate: // Початкова дата в форматі 'гггг-мм-дд'.
- *   addedDays: // Кількість доданих днів.
- *   resultDate: // Результуюча дата в форматі 'гггг-мм-дд'.
+ *   inputDate: // The initial date in 'yyyy-mm-dd' format.
+ *   addedDays: // The number of added days.
+ *   resultDate: // The resulting date in 'yyyy-mm-dd' format.
  * }
  */
 function addDays(date, days) {
-  // Перевірка, чи є вхідне значення об'єктом Date,це можно зробити перевіривши чи є date.getTime по типу функція .
-  // Якщо date не є об'єктом Date, повертаємо рядок
-  // "Помилка: вхідне значення має бути об'єктом Date"
-  // Перевірка, чи є кількість днів числом.
-  // Якщо days не є числом, функція поверне рядок
-  // "Помилка: кількість днів має бути числом" та повертає undefined.
-  // Збереження початкової дати для виведення в форматі ISO.
-  // Додавання заданої кількості днів до дати.
-  // Збереження результуючої дати для виведення в форматі ISO.
-  // Повертаємо об'єкт з початковою датою, кількістю доданих днів та результуючою датою.
+  if (!(typeof date.getTime === 'function')) {
+    return "Error: the input value must be a Date object";
+  }
+  if (!(typeof days === 'number')) {
+    console.log('Error: the number of days must be a number');
+    return undefined;
+  }
+  let inputDate = date.toISOString();
+  date.setDate(date.getDate() + days);
+  let resultDate = date.toISOString();
+
+  return {
+    inputDate,
+    addedDays: days,
+    resultDate,
+  };
 }
 
-console.log("Завдання: 7 ==============================");
+console.log("Task: 7 ==============================");
 
 console.log(addDays(new Date("2023-01-01"), 7));
-//Виведе
+// Outputs:
 // {
 //   inputDate: '2023-01-01T00:00:00.000Z',
 //   addedDays: 7,
 //   resultDate: '2023-01-08T00:00:00.000Z'
 // }
 
-// Завдання 8
+// Task 8
 /**
- * Функція `getDayOfWeek` повертає день тижня вказаної дати українською мовою.
+ * The function `getDayOfWeek` returns the day of the week for a given date in Polish.
  *
- * date - Об'єкт Date.
+ * date - A Date object.
  *
- * Повертає об'єкт:
+ * Returns an object:
  * {
- *   inputDate: // Початкова дата в форматі 'гггг-мм-дд'.
- *   dayOfWeek: // День тижня українською мовою.
+ *   inputDate: // The initial date in 'yyyy-mm-dd' format.
+ *   dayOfWeek: // The day of the week in Polish.
  * }
  */
 let daysOfWeek = [
-  "неділя",
-  "понеділок",
-  "вівторок",
-  "середа",
-  "четвер",
-  "п’ятниця",
-  "субота",
+  "Niedziela",
+  "Poniedziałek",
+  "Wtorek",
+  "Środa",
+  "Czwartek",
+  "Piątek",
+  "Sobota",
 ];
 
 function getDayOfWeek(date) {
-  // Перевірка, чи є вхідне значення об'єктом Date,це можно зробити перевіривши чи є date.getTime по типу функція .
-  // Якщо date не є об'єктом Date, повертаємо рядок
-  // "Помилка: вхідне значення має бути об'єктом Date"
-  // Збереження початкової дати для виведення  в форматі ISO.
-  // Отримання дня тижня як числа (0 - неділя, 1 - понеділок, ..., 6 - субота).
-  // Отримання назви дня тижня з масиву daysOfWeek за індексом.
-  // Повертаємо об'єкт з початковою датою та днем тижня.
+  if (!(typeof date.getTime === 'function')) {
+    return "Error: the input value must be a Date object";
+  }
+  let inputDate = date.toISOString();
+  let numberOfDay = date.getDay();
+  let dayOfWeek = daysOfWeek[numberOfDay];
+  return { inputDate, dayOfWeek };
 }
 
-console.log("Завдання: 8 ==============================");
+console.log("Task: 8 ==============================");
 
 console.log(getDayOfWeek(new Date("2023-01-01")));
-//Виведе { inputDate: '2023-01-01T00:00:00.000Z', dayOfWeek: 'неділя' }
+// Outputs: { inputDate: '2023-01-01T00:00:00.000Z', dayOfWeek: 'Niedziela' }
 
-// Завдання 9
+// Task 9
 /**
- * Функція `getDaysInMonth` повертає кількість днів у місяці вказаної дати.
+ * The function `getDaysInMonth` returns the number of days in the month of the given date.
  *
- * date - Об'єкт Date.
+ * date - A Date object.
  *
- * Повертає об'єкт:
+ * Returns an object:
  * {
- *   inputDate: // Початкова дата в форматі 'гггг-мм-дд'.
- *   daysInMonth: // Кількість днів у місяці.
+ *   inputDate: // The initial date in 'yyyy-mm-dd' format.
+ *   daysInMonth: // The number of days in the month.
  * }
  */
 function getDaysInMonth(date) {
-  // Перевірка, чи є вхідне значення об'єктом Date,це можно зробити перевіривши чи є date.getTime по типу функція .
-  // Якщо date не є об'єктом Date, повертаємо рядок
-  // "Помилка: вхідне значення має бути об'єктом Date"
-  // Збереження початкової дати для виведення  в форматі ISO.
-  // Отримання поточного місяця.
-  // Отримання поточного року.
-  // Створення об'єкта Date для першого дня наступного місяця.
-  // Віднімання одного дня від наступного місяця, щоб отримати останній день поточного місяця.
-  // Отримання числа останнього дня поточного місяця - це кількість днів у місяці.
-  // Повертаємо об'єкт з початковою датою та кількістю днів у місяці.
+  if (!(typeof date.getTime === 'function')) {
+    return `Error: the input value must be a Date object`;
+  }
+  let inputDate = date.toISOString();
+  let currentMonth = date.getMonth();
+  let currentYear = date.getFullYear();
+  let nextMonth = new Date(currentYear, currentMonth + 1, 1);
+  nextMonth.setDate(nextMonth.getDate() - 1);
+  let daysInMonth = nextMonth.getDate();
+  return { inputDate, daysInMonth };
 }
-console.log("Завдання: 9 ==============================");
+
+console.log("Task: 9 ==============================");
 
 console.log(getDaysInMonth(new Date("2023-02-01")));
-//Виведе { inputDate: '2023-02-01T00:00:00.000Z', daysInMonth: 28 }
+// Outputs: { inputDate: '2023-02-01T00:00:00.000Z', daysInMonth: 28 }
 
-// Завдання 10
+
+// Task 10
 /**
- * Функція `getFormattedTime` повертає час в форматі 'гг:хх:сс'.
+ * The function `getFormattedTime` returns the time in the format 'hh:mm:ss'.
  *
- * date - Об'єкт Date.
+ * date - A Date object.
  *
- * Повертає об'єкт:
+ * Returns an object:
  * {
- *   inputDate: // Початкова дата в форматі 'гггг-мм-дд'.
- *   formattedTime: // Час в форматі 'гг:хх:сс'.
+ *   inputDate: // The initial date in the format 'yyyy-mm-dd'.
+ *   formattedTime: // The time in the format 'hh:mm:ss'.
  * }
  */
 function getFormattedTime(date) {
-  // Перевірка, чи є вхідне значення об'єктом Date,це можно зробити перевіривши чи є date.getTime по типу функція .
-  // Якщо date не є об'єктом Date, повертаємо рядок
-  // "Помилка: вхідне значення має бути об'єктом Date"
-  // Збереження початкової дати для виведення  в форматі ISO.
-  // Отримання годин.
-  // Отримання хвилин.
-  // Отримання секунд.
-  // Форматування часу у вигляді 'гг:хх:сс', ${hours.toString().padStart(2, "0")}:${minutes.toString().padStart(2, "0")}:${seconds.toString().padStart(2, "0")}.
-  // Повертаємо об'єкт з початковою датою та отформатованим часом.
+  if (!(typeof date.getTime === 'function')) {
+    return `Error: the input value must be a Date object`;
+  }
+  let inputDate = date.toISOString();
+  let hours = date.getHours();
+  let minutes = date.getMinutes();
+  let seconds = date.getSeconds();
+  let formattedTime = `${hours.toString().padStart(2, "0")}:${minutes
+    .toString()
+    .padStart(2, "0")}:${seconds.toString().padStart(2, "0")}`;
+  return { inputDate, formattedTime };
 }
-console.log("Завдання: 10 ==============================");
 
+console.log("Task: 10 ==============================");
 console.log(getFormattedTime(new Date("2023-12-25T09:30:00.000Z")));
-//Виведе { inputDate: '2023-12-25T09:30:00.000Z', formattedTime: '12:30:00' }
+// Output: { inputDate: '2023-12-25T09:30:00.000Z', formattedTime: '09:30:00' }
 
-// Завдання 11
+// Task 11
 /**
- * Функція `getAge` обчислює вік на підставі вказаної дати народження.
+ * The function `getAge` calculates the age based on the given birth date.
  *
- * birthDate - Об'єкт Date, представляє дату народження.
+ * birthDate - A Date object representing the birth date.
  *
- * Повертає об'єкт:
+ * Returns an object:
  * {
- *   birthDate: // Дата народження в форматі 'гггг-мм-дд'.
- *   age: // Обчислений вік.
+ *   birthDate: // The birth date in the format 'yyyy-mm-dd'.
+ *   age: // The calculated age.
  * }
  */
 function getAge(birthDate) {
-  // Перевірка, чи є вхідне значення об'єктом Date,це можно зробити перевіривши чи є birthDate.getTime по типу функція .
-  // Якщо birthDate не є об'єктом Date, повертаємо рядок
-  // "Помилка: вхідне значення має бути об'єктом Date"
-  // Отримання поточної дати.
-  // Вираховування різницю років між поточною датою та датою народження.
-  // Перевірка, чи поточна дата ще не пройшла день народження, тобто поточний місяць має бути менше, а якщо дорівнює дата має бути менше.
-  // Якщо день народження ще не пройшов, вік потрібно зменшити на 1.
-  // Збереження дати народження для виведення в форматі ISO.
-  // Повертаємо об'єкт з датою народження та обчисленим віком.
+  if (!(typeof birthDate.getTime === 'function')) {
+    return `Error: the input value must be a Date object`;
+  }
+  let currentDate = new Date();
+  let age = currentDate.getFullYear() - birthDate.getFullYear();
+  if (
+    currentDate.getMonth() < birthDate.getMonth() ||
+    (currentDate.getMonth() === birthDate.getMonth() &&
+      currentDate.getDate() < birthDate.getDate())
+  ) {
+    age--;
+  }
+  let birthDateISO = birthDate.toISOString();
+  return { birthDate: birthDateISO, age };
 }
-console.log("Завдання: 11 ==============================");
 
-console.log(getAge(new Date("1990-05-15")));
-//Виведе { birthDate: '1990-05-15T00:00:00.000Z', age: 33 }
+console.log("Task: 11 ==============================");
+console.log(getAge(new Date("1990-09-15")));
+// Output: { birthDate: '1990-09-15T00:00:00.000Z', age: 33 or 34 }
 
-// Завдання 12
+// Task 12
 /**
- * Функція `compareDates` порівнює дві дати і повертає результат порівняння.
+ * The function `compareDates` compares two dates and returns the result of the comparison.
  *
- * date1 - Об'єкт Date.
- * date2 - Об'єкт Date.
+ * date1 - A Date object.
+ * date2 - A Date object.
  *
- * Повертає об'єкт:
+ * Returns an object:
  * {
- *   date1: // Перша дата в форматі 'гггг-мм-дд'.
- *   date2: // Друга дата в форматі 'гггг-мм-дд'.
- *   comparison: // Результат порівняння: -1, якщо date1 < date2, 0, якщо date1 === date2, 1, якщо date1 > date2.
+ *   date1: // The first date in the format 'yyyy-mm-dd'.
+ *   date2: // The second date in the format 'yyyy-mm-dd'.
+ *   comparison: // The result of the comparison: -1 if date1 < date2, 0 if date1 === date2, 1 if date1 > date2.
  * }
  */
 function compareDates(date1, date2) {
-  // Перевірка, чи є вхідні значення об'єктами Date.
-  // Якщо date1 або date2 не є об'єктами Date, повертаємо рядок
-  // "Помилка: вхідне значення має бути об'єктом Date"
-  // Порівняння дат і отримання результату порівняння: -1, якщо date1 < date2, 0, якщо date1 === date2, 1, якщо date1 > date2.
-  // Збереження дат для виведення  в форматі ISO.
-  // Повертаємо об'єкт з порівнюваними датами та результатом порівняння.
+  if (
+    !(typeof date1.getTime === 'function') ||
+    !(typeof date2.getTime === 'function')
+  ) {
+    return "Error: the input value must be a Date object";
+  }
+  let comparison = date1 < date2 ? -1 : date1 > date2 ? 1 : 0;
+  let formattedDate1 = date1.toISOString();
+  let formattedDate2 = date2.toISOString();
+  return { date1: formattedDate1, date2: formattedDate2, comparison };
 }
-console.log("Завдання: 12 ==============================");
 
+console.log("Task: 12 ==============================");
 console.log(compareDates(new Date("2023-01-01"), new Date("2022-12-31")));
-//Виведе
+// Output:
 // {
 //   date1: '2023-01-01T00:00:00.000Z',
 //   date2: '2022-12-31T00:00:00.000Z',
 //   comparison: 1
 // }
 
-// Завдання 13
+// Task 13
 /**
- * Функція `getDaysDifference` обчислює різницю в днях між двома датами.
+ * The function `getDaysDifference` calculates the difference in days between two dates.
  *
- * startDate - Початкова дата.
- * endDate - Кінцева дата.
+ * startDate - The start date.
+ * endDate - The end date.
  *
- * Повертає об'єкт:
+ * Returns an object:
  * {
- *   startDate: // Початкова дата в форматі 'гггг-мм-дд'.
- *   endDate: // Кінцева дата в форматі 'гггг-мм-дд'.
- *   daysDifference: // Різниця в днях між двома датами.
+ *   startDate: // The start date in the format 'yyyy-mm-dd'.
+ *   endDate: // The end date in the format 'yyyy-mm-dd'.
+ *   daysDifference: // The difference in days between the two dates.
  * }
  */
 function getDaysDifference(startDate, endDate) {
-  // Перевірка, чи є вхідні значення об'єктами Date.
-  // Якщо startDate або endDate не є об'єктами Date, повертаємо рядок
-  // "Помилка: вхідне значення має бути об'єктом Date"
-  // Отримання часу в мілісекундах для початкової та кінцевої дати.
-  // Різниця в мілісекундах між двома датами.
-  // Перетворення різниці в мілісекундах у дні поділивши мілісекунди на (1000 * 60 * 60 * 24).
-  // Збереження дат для виведення в форматі ISO.
-  // Повертаємо об'єкт з початковою та кінцевою датами та різницею в днях.
+  if (
+    !(typeof startDate.getTime === 'function') ||
+    !(typeof endDate.getTime === 'function')
+  ) {
+    return "Error: the input value must be a Date object";
+  }
+  let startTime = startDate.getTime();
+  let endTime = endDate.getTime();
+  let timeDifference = endTime - startTime;
+  let daysDifference = timeDifference / (1000 * 60 * 60 * 24);
+  let formattedStartDate = startDate.toISOString();
+  let formattedEndDate = endDate.toISOString();
+  return {
+    startDate: formattedStartDate,
+    endDate: formattedEndDate,
+    daysDifference,
+  };
 }
-console.log("Завдання: 13 ==============================");
 
+console.log("Task: 13 ==============================");
 console.log(getDaysDifference(new Date("2023-01-01"), new Date("2023-01-10")));
-//Виведе
+// Output:
 // {
 //   startDate: '2023-01-01T00:00:00.000Z',
 //   endDate: '2023-01-10T00:00:00.000Z',
